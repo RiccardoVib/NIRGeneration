@@ -36,7 +36,7 @@ Our architectures were evaluated on two analog effects:
 This code relies on Python 3.9 and TensorFlow.
 First, install Python dependencies:
 ```
-cd ./code
+cd ./src
 pip install -r requirements.txt
 ```
 
