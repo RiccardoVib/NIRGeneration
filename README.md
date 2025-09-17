@@ -4,7 +4,7 @@ This code repository is for the article _Parametric Generation of Impulse Respon
 
 This repository contains all the necessary utilities to use our architectures. Find the code located inside the "./src" folder, and the weights of pre-trained models inside the "./weights" folder
 
-Visit our [companion page with audio examples](https://riccardovib.github.io/NIR_pages/)
+Visit our [companion page with audio examples](https://riccardovib.github.io/NIRGeneration_pages/)
 
 ### Folder Structure
 
