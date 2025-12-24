@@ -19,8 +19,55 @@
 import tensorflow as tf
 from ConditioningLayer import FiLM, GLU
 
+class IR_Conv(tf.keras.layers.Layer):
+    def __init__(self, filter_length, mini_batch_size, batch_size, cond_type, dry_wet):
+        super(IR_Conv, self).__init__()
+        self.mini_batch_size = mini_batch_size
+        self.filter_length = filter_length
+        self.batch_size = batch_size
+        self.cond_type = cond_type
+        self.dry_wet = dry_wet
 
-class Conv(tf.keras.layers.Layer):
+        self.pre0 = tf.keras.layers.Dense(filter_length)  # //2
+        self.prelu = tf.keras.layers.PReLU()
+        self.film = FiLM(filter_length)
+        self.glu = GLU(filter_length)
+
+        self.filters = tf.keras.layers.Dense(filter_length, activation='softsign')
+        # inputs = tf.Variable(tf.ones((self.batch_size, self.mini_batch_size, 1)))
+        # c = tf.Variable(tf.ones((self.batch_size, 1, 4)))
+
+    def call(self, inputs, c):
+
+        c_ = self.pre0(c)
+        c_ = self.prelu(c_)
+        c_ = self.film(c_, c)
+        c_ = self.glu(c_)
+        filters = self.filters(c_)
+        # Calculate delay for linear-phase filter
+        delay = (self.filter_length - 1) // 2
+        inputs_padded = tf.pad(inputs, [[0, 0], [self.filter_length-1, delay], [0, 0]])
+
+        outputs_ = []
+        for i in range(self.batch_size):
+            outputs = tf.nn.convolution(
+                inputs_padded[i:i+1],
+                filters[i],
+                strides=1,
+                padding='VALID',
+                data_format=None,
+                dilations=None,
+                name='filter'
+            )
+            outputs_.append(outputs[0, delay:delay + self.mini_batch_size])
+
+        outputs = tf.stack(outputs_)
+        if self.dry_wet:
+            return self.dry * inputs + outputs
+        else:
+            return outputs
+            
+class FFT_Conv(tf.keras.layers.Layer):
     def __init__(self, filter_length, mini_batch_size, batch_size, cond_type, dry_wet):
         super(Conv, self).__init__()
         self.mini_batch_size = mini_batch_size
