@@ -111,15 +111,27 @@ class FFT_Conv(tf.keras.layers.Layer):
         else:
             return y
 
-def create_model(filter_length, cond_dim, mini_batch_size, batch_size, cond_type, dry_wet):
+def create_model_FFT(filter_length, cond_dim, mini_batch_size, batch_size, cond_type, dry_wet):
 
     # Defining inputs
     inputs = tf.keras.layers.Input(batch_shape=(batch_size, mini_batch_size, 1), name='input')
     c = tf.keras.layers.Input(batch_shape=(batch_size, 1, cond_dim), name='c')
 
-    outputs = Conv(filter_length=filter_length, mini_batch_size=mini_batch_size, batch_size=batch_size, cond_type=cond_type, dry_wet=dry_wet)(inputs, c)
+    outputs = FFT_Conv(filter_length=filter_length, mini_batch_size=mini_batch_size, batch_size=batch_size, cond_type=cond_type, dry_wet=dry_wet)(inputs, c)
 
     model = tf.keras.models.Model([inputs, c], outputs)
     model.summary()
     return model
 
+
+def create_model_IR(filter_length, cond_dim, mini_batch_size, batch_size, cond_type, dry_wet):
+
+    # Defining inputs
+    inputs = tf.keras.layers.Input(batch_shape=(batch_size, mini_batch_size, 1), name='input')
+    c = tf.keras.layers.Input(batch_shape=(batch_size, 1, cond_dim), name='c')
+
+    outputs = IR_Conv(filter_length=filter_length, mini_batch_size=mini_batch_size, batch_size=batch_size, cond_type=cond_type, dry_wet=dry_wet)(inputs, c)
+
+    model = tf.keras.models.Model([inputs, c], outputs)
+    model.summary()
+    return model
