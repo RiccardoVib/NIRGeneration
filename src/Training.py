@@ -19,7 +19,7 @@
 import os
 import tensorflow as tf
 from UtilsForTrainings import plotTraining, writeResults, checkpoints, predictWaves
-from Models import create_model
+from Models import create_model_FFT, create_model_IR
 from DatasetsClass import DataGeneratorPickles
 import numpy as np
 import random
@@ -99,8 +99,11 @@ def train(**kwargs):
     elif model_t == 'iir':
         model = create_iir_model(filter_length=filter_length, cond_dim=test_gen.z.shape[-1], mini_batch_size=mini_batch_size,
                                   batch_size=test_gen.batch_size, dry_wet=dry_wet)
+    elif model_t == 'fft':
+        model = create_model_FFT(filter_length=filter_length, cond_dim=test_gen.z.shape[-1], mini_batch_size=mini_batch_size,
+                             batch_size=test_gen.batch_size, cond_type=cond_type, dry_wet=dry_wet)
     else:
-        model = create_model(filter_length=filter_length, cond_dim=test_gen.z.shape[-1], mini_batch_size=mini_batch_size,
+        model = create_model_IR(filter_length=filter_length, cond_dim=test_gen.z.shape[-1], mini_batch_size=mini_batch_size,
                      batch_size=test_gen.batch_size, cond_type=cond_type, dry_wet=dry_wet)
 
     batch_size = test_gen.batch_size
