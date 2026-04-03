@@ -13,7 +13,6 @@ from ConvModel import IR_Conv
 from FFTModel import FFTConv, FFTConv_real
 from IIRModel import IIR, IIR_real
 from Evaluation import plot_tf_evaluation
-from FFTModelHybrid import FFT_Hybrid
 from STFTloss import STFTLoss
 
 script_path = Path(__file__).resolve()
@@ -70,8 +69,6 @@ def train(**kwargs):
         model = FFTConv_real(filter_length=filter_length, cond_dim=cond_dim)
     elif model_t == "iir_real":
         model = IIR_real(filter_length=filter_length, cond_dim=cond_dim)
-    elif model_t == "fft_hybrid":
-        model = FFT_Hybrid(filter_length=filter_length, cond_dim=cond_dim)
     else:
         model = None
 
