@@ -120,27 +120,3 @@ class H5Dataset(Dataset):
                 self._file.close()
             except Exception:
                 pass
-
-
-# ── Usage ──────────────────────────────────────────────────────────────────────
-if __name__ == "__main__":
-    train_ds = H5Dataset(
-        source_h5="combined_train.h5",
-        seg_len=16384,
-        overlap=4096,
-        force_rebuild=False,
-    )
-    test_ds = H5Dataset(
-        source_h5="combined_test.h5",
-        seg_len=16384,
-        overlap=4096,
-        force_rebuild=False,
-    )
-
-    print(f"Train segments: {len(train_ds)}")
-    print(f"Test  segments: {len(test_ds)}")
-
-    loader = DataLoader(train_ds, batch_size=16, shuffle=True, num_workers=4)
-    batch  = next(iter(loader))
-    print(batch["input"].shape)   # (16, 16384)
-    print(batch["cond"].shape)    # (16, 2)
