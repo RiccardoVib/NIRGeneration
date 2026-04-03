@@ -2,15 +2,15 @@
 
 This code repository is for the article _Phase-Aware Modeling of Analog Reverb_, on review.
 
-This repository contains all the necessary utilities to use our architectures. Find the code located inside the "./src" folder, and the weights of pre-trained models inside the "./weights" folder
+This repository contains all the necessary utilities to use our architectures. Find the code located inside the "./src" folder, the weights of pre-trained models inside the "./weights" folder, and the audio examples in "./examples"
 
 ### Folder Structure
 
 ```
 ./
 ├── src
-└── weights
-    ├── 
+├── weights
+└── examples
 ```
 
 ### Contents
