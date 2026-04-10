@@ -41,11 +41,20 @@ pip install -r requirements.txt
 To train models, use the starter.py script.
 Ensure you have loaded the dataset into the chosen datasets folder
 
+# Example
+
+The ```examples/``` folder contains sound examples from the models presented in the paper. Each file follows the naming convention: 
+TYPE_C1_C2
+
+TYPE — Dataset origin: analog for real recorded samples or synthetic for synthesized ones
+
+C1 — Reverb type: Spring, Plate, Hall in case of Analog, PLATE140 and LittlePlate in case of Synthetic
+
+C2 — Decay time (Only for Synthetic) in seconds
 
 # Bibtex
 
-If you use the code included in this repository or any part of it, please acknowledge 
-its authors by adding a reference to these publications:
+If you use the code included in this repository or any part of it, please acknowledge its authors by adding a reference to these publications:
 
 ```
 
