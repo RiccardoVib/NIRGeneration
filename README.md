@@ -44,13 +44,13 @@ Ensure you have loaded the dataset into the chosen datasets folder
 # Example
 
 The ```examples/``` folder contains sound examples from the models presented in the paper. Each file follows the naming convention: 
-TYPE_C1_C2
+```TYPE_C1_C2```
 
-TYPE — Dataset origin: analog for real recorded samples or synthetic for synthesized ones
+```TYPE``` — Dataset origin: analog for real recorded samples or synthetic for synthesized ones
 
-C1 — Reverb type: Spring, Plate, Hall in case of Analog, PLATE140 and LittlePlate in case of Synthetic
+```C1``` — Reverb type: Spring, Plate, Hall in case of Analog, PLATE140 and LittlePlate in case of Synthetic
 
-C2 — Decay time (Only for Synthetic) in seconds
+```C2``` — Decay time (Only for Synthetic) in seconds
 
 # Bibtex
 
